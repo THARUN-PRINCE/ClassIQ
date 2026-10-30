@@ -10,59 +10,12 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Jost:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f7f7f5;
       color: #111111;
       margin: 0;
-    }
-
-    .chart-line-temp {
-      fill: none;
-      stroke: #111111;
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-    .chart-line-temp:hover {
-      stroke-width: 5;
-      stroke: #ef4444;
-      filter: drop-shadow(0px 2px 4px rgba(239, 68, 68, 0.4));
-    }
-
-    .chart-line-humidity {
-      fill: none;
-      stroke: #888888;
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 4 4;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-    .chart-line-humidity:hover {
-      stroke-width: 5;
-      stroke: #0284c7;
-      stroke-dasharray: none;
-      filter: drop-shadow(0px 2px 4px rgba(2, 132, 199, 0.4));
-    }
-
-    .chart-line-oxygen {
-      fill: none;
-      stroke: #bbbbbb;
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-    .chart-line-oxygen:hover {
-      stroke-width: 5;
-      stroke: #16a34a;
-      filter: drop-shadow(0px 2px 4px rgba(22, 163, 74, 0.4));
     }
   </style>
 </head>
@@ -73,110 +26,66 @@
   <!-- ========================================== -->
   <div id="login-section" class="flex min-h-screen items-center justify-center p-4 bg-gradient-to-b from-[#f5f5f5] to-white">
     <div class="w-full max-w-[500px] bg-white rounded-[24px] p-8 shadow-xl border border-[#dddddd] relative">
-      
-      <!-- HEADER -->
       <div class="flex flex-col items-start pb-4">
         <h1 class="font-extrabold text-3xl tracking-tight text-[#111111]">ClassIQ</h1>
         <p class="text-xs text-[#777777] mt-1">Classroom Management System</p>
       </div>
-
-      <!-- PROGRESS LINE -->
       <div class="w-full h-1 bg-neutral-200 rounded-[5px] mb-6">
         <div class="w-full h-full bg-[#111111] rounded-[5px]"></div>
       </div>
-
-      <!-- TITLE -->
       <div class="text-center mb-6">
         <h2 class="font-bold text-2xl text-[#111111] tracking-wide">FACULTY / ADMIN LOGIN</h2>
         <p class="text-xs text-[#777777] mt-1">Enter credentials to access professor dashboard</p>
       </div>
-
-      <!-- FORM -->
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-[#545454] mb-1 pl-2">Username</label>
-          <input 
-            type="text" 
-            id="login-username" 
-            placeholder="Username (sudharshan / tharun)" 
-            required 
-            class="w-full px-5 py-3.5 rounded-[31.5px] border border-[#dddddd] text-[#111111] placeholder-[#999999] focus:outline-none focus:border-[#111111] text-sm"
-          />
+          <input type="text" id="login-username" placeholder="Username (sudharshan / tharun)" required class="w-full px-5 py-3.5 rounded-[31.5px] border border-[#dddddd] text-[#111111] placeholder-[#999999] focus:outline-none focus:border-[#111111] text-sm" />
         </div>
-
         <div>
           <label class="block text-xs font-semibold text-[#545454] mb-1 pl-2">Password</label>
-          <input 
-            type="password" 
-            id="login-password" 
-            placeholder="Password (1234 / 123)" 
-            required 
-            class="w-full px-5 py-3.5 rounded-[31.5px] border border-[#dddddd] text-[#111111] placeholder-[#999999] focus:outline-none focus:border-[#111111] text-sm"
-          />
+          <input type="password" id="login-password" placeholder="Password (1234 / 123)" required class="w-full px-5 py-3.5 rounded-[31.5px] border border-[#dddddd] text-[#111111] placeholder-[#999999] focus:outline-none focus:border-[#111111] text-sm" />
         </div>
-
         <div id="login-error" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-semibold text-center">
           ❌ Invalid Username or Password!
         </div>
-
-        <button 
-          type="submit" 
-          class="w-full py-4 mt-4 bg-[#111111] hover:bg-[#222222] text-white font-bold rounded-xl transition duration-200 cursor-pointer text-sm"
-        >
+        <button type="submit" class="w-full py-4 mt-4 bg-[#111111] hover:bg-[#222222] text-white font-bold rounded-xl transition duration-200 cursor-pointer text-sm">
           Continue
         </button>
       </form>
     </div>
   </div>
 
-
   <!-- ========================================== -->
-  <!-- 2. MAIN DASHBOARD APP (HIDDEN UNTIL LOGIN) -->
+  <!-- 2. MAIN DASHBOARD APP                      -->
   <!-- ========================================== -->
   <div id="main-dashboard-app" class="hidden flex min-h-screen w-full bg-[#f7f7f5]">
     
     <!-- LEFT SIDEBAR -->
     <aside class="w-[240px] bg-white border-r border-[#e8e8e4] flex flex-col justify-between fixed h-full z-20">
       <div>
-        <!-- BRAND LOGO -->
         <div class="p-6 border-b border-[#ededeb]">
           <h1 class="font-bold text-xl tracking-tight text-[#111111]">ClassIQ</h1>
           <p class="text-[11px] text-[#858585] mt-0.5">Smart Classroom Management</p>
         </div>
 
-        <!-- NAVIGATION LINKS -->
         <div class="px-3 py-4 space-y-1">
           <p class="px-3 text-[10px] font-bold text-[#999999] tracking-widest uppercase mb-2">Workspace</p>
-          
           <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#111111] text-white font-medium text-xs text-left cursor-pointer transition">
             <span class="text-sm">⌂</span> Dashboard
           </button>
-          
           <button onclick="switchTab('attendance')" id="nav-attendance" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#666666] hover:bg-slate-100 font-medium text-xs text-left cursor-pointer transition">
             <span class="text-sm">✓</span> Attendance
           </button>
-          
           <button onclick="switchTab('students')" id="nav-students" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#666666] hover:bg-slate-100 font-medium text-xs text-left cursor-pointer transition">
             <span class="text-sm">♙</span> Students
           </button>
-          
           <button onclick="switchTab('environment')" id="nav-environment" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#666666] hover:bg-slate-100 font-medium text-xs text-left cursor-pointer transition">
             <span class="text-sm">◉</span> Environment
-          </button>
-          
-          <button onclick="switchTab('analytics')" id="nav-analytics" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#666666] hover:bg-slate-100 font-medium text-xs text-left cursor-pointer transition">
-            <span class="text-sm">▥</span> Analytics
-          </button>
-
-          <p class="px-3 text-[10px] font-bold text-[#999999] tracking-widest uppercase mt-6 mb-2">System</p>
-          
-          <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#666666] hover:bg-slate-100 font-medium text-xs text-left cursor-pointer transition">
-            <span class="text-sm">⚙</span> Settings
           </button>
         </div>
       </div>
 
-      <!-- FOOTER STATUS -->
       <div class="p-4 border-t border-[#ededeb]">
         <p class="text-[10px] text-[#999999]">Connected classroom</p>
         <p class="text-xs font-bold text-[#111111] mt-0.5">CSE-A · Room 204</p>
@@ -187,7 +96,7 @@
       </div>
     </aside>
 
-    <!-- RIGHT MAIN CONTENT WRAPPER -->
+    <!-- RIGHT MAIN CONTENT -->
     <div class="flex-1 ml-[240px] flex flex-col min-w-0">
       
       <!-- TOP NAVIGATION BAR -->
@@ -203,15 +112,8 @@
             <div class="w-2 h-2 rounded-full bg-[#1fa363] animate-pulse"></div>
             <span class="text-[#545454]">Live IoT Stream</span>
           </div>
-
-          <button onclick="alert('♧ ClassIQ Notification: Firebase Realtime Stream & Google Sheets API Active!')" class="w-8 h-8 rounded-lg border border-[#e4e4e1] flex items-center justify-center text-xs font-medium hover:bg-slate-50 cursor-pointer">
-            ♧
-          </button>
-
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-full bg-[#111111] text-white flex items-center justify-center text-xs font-bold" id="user-avatar-text">
-              SU
-            </div>
+            <div class="w-8 h-8 rounded-full bg-[#111111] text-white flex items-center justify-center text-xs font-bold" id="user-avatar-text">SU</div>
             <div>
               <p class="text-xs font-bold text-[#111111] leading-tight" id="user-display-name">Sudharshan</p>
               <p class="text-[10px] text-[#999999]">Faculty Admin</p>
@@ -220,31 +122,27 @@
         </div>
       </header>
 
-      <!-- MAIN PAGE CONTAINERS -->
+      <!-- MAIN PAGE CONTENT -->
       <main class="p-8 max-w-[1600px] w-full mx-auto space-y-6">
         
-        <!-- ================= PAGE 1: DASHBOARD OVERVIEW ================= -->
+        <!-- ================= DASHBOARD OVERVIEW ================= -->
         <section id="view-dashboard" class="space-y-6">
-          <div class="flex justify-between items-end">
-            <div>
-              <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Good day, Faculty.</h2>
-              <p class="text-xs text-[#777777] mt-1">Here's live real-time metrics from your classroom IoT node.</p>
-            </div>
-            <div class="text-xs text-[#777777]" id="live-dashboard-clock">
-              Live Connection
-            </div>
+          <div>
+            <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Good day, Faculty.</h2>
+            <p class="text-xs text-[#777777] mt-1">Here's live real-time metrics from your classroom IoT node.</p>
           </div>
 
-          <!-- TOP METRICS GRID (DYNAMIC FIREBASE DATA) -->
+          <!-- TOP METRIC CARDS -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-white p-5 rounded-xl border border-[#e7e7e3] space-y-3">
               <div class="flex justify-between items-center">
                 <span class="text-xs font-medium text-[#777777]">Attendance Present</span>
                 <span class="w-7 h-7 rounded-lg border border-[#ececeb] flex items-center justify-center text-xs text-[#111111]">✓</span>
               </div>
-              <p class="text-2xl font-bold text-[#111111] tracking-tight" id="dash-attendance-count">0 / 0</p>
+              <!-- TARGET COUNTER: e.g. 1 / 10 -->
+              <p class="text-3xl font-extrabold text-[#111111] tracking-tight" id="dash-attendance-count">0 / 0</p>
               <div class="flex items-center gap-1.5 text-[11px]">
-                <span id="dash-attendance-rate" class="text-[#14915a] font-medium">0%</span>
+                <span id="dash-attendance-rate" class="text-[#14915a] font-bold">0%</span>
                 <span class="text-[#999999]">attendance marked</span>
               </div>
             </div>
@@ -254,11 +152,8 @@
                 <span class="text-xs font-medium text-[#777777]">Temperature</span>
                 <span class="w-7 h-7 rounded-lg border border-[#ececeb] flex items-center justify-center text-xs text-[#111111]">°</span>
               </div>
-              <p class="text-2xl font-bold text-[#111111] tracking-tight" id="dash-live-temp">-- °C</p>
-              <div class="flex items-center gap-1.5 text-[11px]">
-                <span id="dash-temp-status" class="text-[#14915a] font-medium">● Normal</span>
-                <span class="text-[#999999]">live node</span>
-              </div>
+              <p class="text-2xl font-bold text-[#111111]" id="dash-live-temp">-- °C</p>
+              <span class="text-[11px] text-[#14915a] font-medium">● Normal</span>
             </div>
 
             <div class="bg-white p-5 rounded-xl border border-[#e7e7e3] space-y-3">
@@ -266,694 +161,193 @@
                 <span class="text-xs font-medium text-[#777777]">Humidity</span>
                 <span class="w-7 h-7 rounded-lg border border-[#ececeb] flex items-center justify-center text-xs text-[#111111]">%</span>
               </div>
-              <p class="text-2xl font-bold text-[#111111] tracking-tight" id="dash-live-hum">-- %</p>
-              <div class="flex items-center gap-1.5 text-[11px]">
-                <span id="dash-hum-status" class="text-[#14915a] font-medium">● Normal</span>
-                <span class="text-[#999999]">live node</span>
-              </div>
+              <p class="text-2xl font-bold text-[#111111]" id="dash-live-hum">-- %</p>
+              <span class="text-[11px] text-[#14915a] font-medium">● Normal</span>
             </div>
 
             <div class="bg-white p-5 rounded-xl border border-[#e7e7e3] space-y-3">
               <div class="flex justify-between items-center">
-                <span class="text-xs font-medium text-[#777777]">MQ-135 Gas Level</span>
+                <span class="text-xs font-medium text-[#777777]">Gas Level</span>
                 <span class="w-7 h-7 rounded-lg border border-[#ececeb] flex items-center justify-center text-xs text-[#111111]">🍃</span>
               </div>
-              <p class="text-2xl font-bold text-[#111111] tracking-tight" id="dash-live-gas">-- PPM</p>
-              <div class="flex items-center gap-1.5 text-[11px]">
-                <span id="dash-gas-status" class="text-[#14915a] font-medium">● Normal</span>
-                <span class="text-[#999999]">live node</span>
-              </div>
+              <p class="text-2xl font-bold text-[#111111]" id="dash-live-gas">-- PPM</p>
+              <span class="text-[11px] text-[#14915a] font-medium">● Normal</span>
             </div>
           </div>
 
-          <!-- MIDDLE SECTION -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-[#e7e7e3] flex flex-col justify-between">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="font-bold text-sm text-[#111111]">Classroom Environment Stream</h3>
-                  <p class="text-xs text-[#999999] mt-0.5">Firebase Realtime Telemetry Graph</p>
-                </div>
-                <button onclick="switchTab('environment')" class="text-xs text-[#545454] hover:underline cursor-pointer">View details →</button>
-              </div>
-
-              <div class="h-[200px] w-full relative">
-                <canvas id="dashTelemetryChart"></canvas>
-              </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl border border-[#e7e7e3] flex flex-col justify-between">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="font-bold text-sm text-[#111111]">Live Environment Conditions</h3>
-                  <p class="text-xs text-[#999999] mt-0.5">ESP8266 Active Readouts</p>
-                </div>
-                <button onclick="switchTab('environment')" class="text-xs text-[#545454] hover:underline cursor-pointer">History →</button>
-              </div>
-
-              <div class="space-y-4 divide-y divide-[#ededeb]">
-                <div class="flex justify-between items-center pt-2">
-                  <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-[#f5f5f3] flex items-center justify-center text-xs">°</div>
-                    <div><p class="text-xs font-bold text-[#111111]">Temperature</p><p class="text-[10px] text-[#999999]">DHT11 Sensor</p></div>
-                  </div>
-                  <div class="text-right"><p class="text-xs font-bold text-[#111111]" id="env-card-temp">-- °C</p><p id="env-badge-temp" class="text-[10px] text-[#14915a]">Normal</p></div>
-                </div>
-
-                <div class="flex justify-between items-center pt-3">
-                  <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-[#f5f5f3] flex items-center justify-center text-xs">%</div>
-                    <div><p class="text-xs font-bold text-[#111111]">Humidity</p><p class="text-[10px] text-[#999999]">DHT11 Sensor</p></div>
-                  </div>
-                  <div class="text-right"><p class="text-xs font-bold text-[#111111]" id="env-card-hum">-- %</p><p id="env-badge-hum" class="text-[10px] text-[#14915a]">Normal</p></div>
-                </div>
-
-                <div class="flex justify-between items-center pt-3">
-                  <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-[#f5f5f3] flex items-center justify-center text-xs">🍃</div>
-                    <div><p class="text-xs font-bold text-[#111111]">MQ-135 Gas</p><p class="text-[10px] text-[#999999]">Analog ADC0</p></div>
-                  </div>
-                  <div class="text-right"><p class="text-xs font-bold text-[#111111]" id="env-card-gas">-- PPM</p><p id="env-badge-gas" class="text-[10px] text-[#14915a]">Normal</p></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOTTOM SECTION -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-[#e7e7e3] space-y-4">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-bold text-sm text-[#111111]">Registered Students Preview</h3>
-                  <p class="text-xs text-[#999999] mt-0.5">Google Sheets Live Student Records</p>
-                </div>
-                <button onclick="switchTab('students')" class="text-xs text-[#545454] hover:underline cursor-pointer">All students →</button>
-              </div>
-
-              <div class="space-y-3 divide-y divide-[#ededeb]" id="dash-recent-students-container">
-                <p class="text-xs text-gray-500 py-2">Loading students from Google Sheets...</p>
-              </div>
-            </div>
-
-            <!-- WORKING QUICK ACTIONS -->
-            <div class="bg-white p-6 rounded-xl border border-[#e7e7e3] space-y-4">
-              <div>
-                <h3 class="font-bold text-sm text-[#111111]">Quick actions</h3>
-                <p class="text-xs text-[#999999] mt-0.5">Common classroom tasks</p>
-              </div>
-
-              <div class="grid grid-cols-2 gap-3">
-                <button onclick="openRegisterModal()" class="p-4 bg-white rounded-lg border border-[#e4e4e1] hover:border-[#111111] text-left space-y-1 transition cursor-pointer">
-                  <span class="text-sm font-bold text-[#111111]">+</span>
-                  <p class="text-xs font-bold text-black">Register student</p>
-                  <p class="text-[10px] text-[#999999]">Add new card via OTP.</p>
-                </button>
-
-                <button onclick="switchTab('attendance')" class="p-4 bg-white rounded-lg border border-[#e4e4e1] hover:border-[#111111] text-left space-y-1 transition cursor-pointer">
-                  <span class="text-sm font-bold text-[#111111]">✓</span>
-                  <p class="text-xs font-bold text-black">Attendance</p>
-                  <p class="text-[10px] text-[#999999]">View attendance status.</p>
-                </button>
-
-                <button onclick="switchTab('environment')" class="p-4 bg-white rounded-lg border border-[#e4e4e1] hover:border-[#111111] text-left space-y-1 transition cursor-pointer">
-                  <span class="text-sm font-bold text-[#111111]">◉</span>
-                  <p class="text-xs font-bold text-black">Environment</p>
-                  <p class="text-[10px] text-[#999999]">View live sensor data.</p>
-                </button>
-
-                <button onclick="exportAnalyticsCSV()" class="p-4 bg-white rounded-lg border border-[#e4e4e1] hover:border-[#111111] text-left space-y-1 transition cursor-pointer">
-                  <span class="text-sm font-bold text-[#111111]">↓</span>
-                  <p class="text-xs font-bold text-black">Export report</p>
-                  <p class="text-[10px] text-[#999999]">Download CSV report.</p>
-                </button>
-              </div>
+          <!-- RECENT STUDENTS DASHBOARD PREVIEW -->
+          <div class="bg-white p-6 rounded-xl border border-[#e7e7e3] space-y-4">
+            <h3 class="font-bold text-sm text-[#111111]">Live Student Scans</h3>
+            <div class="space-y-3 divide-y divide-[#ededeb]" id="dash-recent-students-container">
+              <p class="text-xs text-gray-500 py-2">Loading live scan status...</p>
             </div>
           </div>
         </section>
 
-
-        <!-- ================= PAGE 2: ATTENDANCE (INTEGRATED) ================= -->
+        <!-- ================= ATTENDANCE ROSTER ================= -->
         <section id="view-attendance" class="hidden space-y-6">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Attendance Roster</h2>
-            <p class="text-xs text-[#777777]">Student attendance activity & RFID tags.</p>
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Attendance Roster</h2>
+              <p class="text-xs text-[#777777]">Live RFID database entries from Google Sheets</p>
+            </div>
+            <button onclick="fetchStudentRoster()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-xs font-bold rounded-lg text-black transition cursor-pointer">
+              ↻ Refresh
+            </button>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="px-5 py-4 bg-white rounded-xl border border-[#e7e7e3] space-y-1">
-              <span class="text-xs font-medium text-[#777777]">Registered Students</span>
-              <p class="text-2xl font-bold text-[#111111]" id="att-total-count">0</p>
-              <p class="text-[10px] text-[#14915a]">Google Sheets Live</p>
-            </div>
-
-            <div class="px-5 py-4 bg-white rounded-xl border border-[#e7e7e3] space-y-1">
-              <span class="text-xs font-medium text-[#777777]">Present Today</span>
-              <p class="text-2xl font-bold text-[#111111]" id="att-active-count">0</p>
-              <p class="text-[10px] text-[#14915a]">Scanned Cards</p>
-            </div>
-
-            <div class="px-5 py-4 bg-white rounded-xl border border-[#e7e7e3] space-y-1">
-              <span class="text-xs font-medium text-[#777777]">System Health</span>
-              <p class="text-2xl font-bold text-[#111111]">100%</p>
-              <p class="text-[10px] text-[#14915a]">Scanner Ready</p>
-            </div>
-
-            <div class="px-5 py-4 bg-white rounded-xl border border-[#e7e7e3] space-y-1">
-              <span class="text-xs font-medium text-[#777777]">Backend API</span>
-              <p class="text-2xl font-bold text-[#111111]">Online</p>
-              <p class="text-[10px] text-[#999999]">Google Apps Script</p>
-            </div>
-          </div>
-
-          <!-- TABLE AND DETAILS -->
           <div class="bg-white rounded-xl border border-[#e7e7e3] overflow-hidden">
-            <div class="flex justify-between items-center px-5 py-4 border-b border-[#ededeb]">
-              <div>
-                <h3 class="font-bold text-sm text-[#111111]">Attendance Roster Status</h3>
-                <p class="text-[11px] text-[#999999]">Live RFID database entries from Google Sheets</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <button onclick="clearAttendanceList()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-lg font-semibold cursor-pointer transition">
-                  🗑 Clear Attendance (Reset to Absent)
-                </button>
-                <button onclick="fetchStudentRoster()" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-black font-semibold cursor-pointer transition">
-                  ↻ Refresh Roster
-                </button>
-              </div>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-[#fafaf8] border-b border-[#ededeb] text-[10px] text-[#888888] font-semibold uppercase">
-                    <th class="p-4 pl-5">ROLL NO</th>
-                    <th class="p-4">STUDENT NAME</th>
-                    <th class="p-4">RFID UID</th>
-                    <th class="p-4">ATTENDANCE STATUS</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-[#f0f0ed]" id="attendance-table-body">
-                  <tr>
-                    <td colspan="4" class="p-4 text-center text-gray-400">Loading student attendance roster...</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-[#fafaf8] border-b border-[#ededeb] text-[10px] text-[#888888] font-semibold uppercase">
+                  <th class="p-4 pl-5">ROLL NO</th>
+                  <th class="p-4">STUDENT NAME</th>
+                  <th class="p-4">RFID UID</th>
+                  <th class="p-4">STATUS</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#f0f0ed]" id="attendance-table-body">
+                <tr><td colspan="4" class="p-4 text-center text-gray-400">Loading student attendance...</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
-
-        <!-- ================= PAGE 3: STUDENTS MANAGEMENT ================= -->
+        <!-- ================= STUDENTS LIST ================= -->
         <section id="view-students" class="hidden space-y-6">
-          <div class="flex justify-between items-center">
-            <div>
-              <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Student Roster</h2>
-              <p class="text-xs text-[#777777]">Registered RFID cards & student profiles from Google Sheets</p>
-            </div>
-            <button onclick="openRegisterModal()" class="px-4 py-2 bg-[#111111] text-white text-xs font-semibold rounded-lg hover:bg-[#222222] transition cursor-pointer">
-              + Register Student (OTP)
-            </button>
-          </div>
-
-          <div class="bg-white rounded-xl border border-[#e7e7e3] overflow-hidden p-6 space-y-4">
-            <div class="flex justify-between items-center">
-              <input type="text" id="student-search-input" onkeyup="filterStudentsTable()" placeholder="Search by name, roll no, or RFID..." class="px-4 py-2 text-xs border border-[#e2e2df] rounded-lg w-72 focus:outline-none focus:border-[#111111]" />
-              <span class="text-xs text-[#777777]" id="total-student-count">Total Students: 0</span>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-[#fafaf8] border-b border-[#ededeb] text-[10px] text-[#888888] font-semibold uppercase">
-                    <th class="p-3 pl-4">ROLL NO</th>
-                    <th class="p-3">NAME</th>
-                    <th class="p-3">RFID UID</th>
-                    <th class="p-3">REGISTRATION STATUS</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-[#f0f0ed]" id="student-roster-body">
-                  <tr>
-                    <td colspan="4" class="p-4 text-center text-gray-400">Loading student roster from Google Sheets...</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <h2 class="text-2xl font-bold text-[#111111]">Student Roster</h2>
+          <div class="bg-white rounded-xl border border-[#e7e7e3] overflow-hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-[#fafaf8] border-b border-[#ededeb] text-[10px] text-[#888888] font-semibold uppercase">
+                  <th class="p-3 pl-4">ROLL NO</th>
+                  <th class="p-3">NAME</th>
+                  <th class="p-3">RFID UID</th>
+                  <th class="p-3">STATUS</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#f0f0ed]" id="student-roster-body">
+                <tr><td colspan="4" class="p-4 text-center text-gray-400">Loading roster...</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
-
-        <!-- ================= PAGE 4: ENVIRONMENT (COMPACT & CLEAN) ================= -->
+        <!-- ================= ENVIRONMENT ================= -->
         <section id="view-environment" class="hidden space-y-6">
-          
-          <div class="flex justify-between items-center">
-            <div>
-              <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Environment Monitor</h2>
-              <p class="text-xs text-[#777777] mt-0.5">Real-time classroom sensor readings from NodeMCU.</p>
-            </div>
-            <span class="text-xs text-[#999999]" id="env-last-updated">Polling Firebase Realtime DB...</span>
-          </div>
-
-          <!-- SENSOR SUMMARY CARDS -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white p-5 rounded-xl border border-[#e7e7e4] space-y-1">
-              <div class="flex justify-between items-center">
-                <span class="text-xs text-[#777777]">Temperature</span>
-                <span class="w-7 h-7 rounded-lg border border-[#e7e7e4] flex items-center justify-center text-xs">°</span>
-              </div>
-              <p class="text-3xl font-bold text-[#111111]" id="page-env-temp">-- °C</p>
-              <div class="flex justify-between items-center text-xs pt-1">
-                <span id="page-env-temp-badge" class="text-[#15915a] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#15915a]"></span> Normal</span>
-                <span class="text-[#999999]">Threshold < 35°C</span>
-              </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-[#e7e7e4] space-y-1">
-              <div class="flex justify-between items-center">
-                <span class="text-xs text-[#777777]">Humidity</span>
-                <span class="w-7 h-7 rounded-lg border border-[#e7e7e4] flex items-center justify-center text-xs">%</span>
-              </div>
-              <p class="text-3xl font-bold text-[#111111]" id="page-env-hum">-- %</p>
-              <div class="flex justify-between items-center text-xs pt-1">
-                <span id="page-env-hum-badge" class="text-[#15915a] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#15915a]"></span> Normal</span>
-                <span class="text-[#999999]">Threshold < 80%</span>
-              </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-[#e7e7e4] space-y-1">
-              <div class="flex justify-between items-center">
-                <span class="text-xs text-[#777777]">MQ-135 Gas Level</span>
-                <span class="w-7 h-7 rounded-lg border border-[#e7e7e4] flex items-center justify-center text-xs">🍃</span>
-              </div>
-              <p class="text-3xl font-bold text-[#111111]" id="page-env-gas">-- PPM</p>
-              <div class="flex justify-between items-center text-xs pt-1">
-                <span id="page-env-gas-badge" class="text-[#15915a] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#15915a]"></span> Normal</span>
-                <span class="text-[#999999]">Threshold < 700 PPM</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- INTERACTIVE GRAPH PANEL -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div class="lg:col-span-2 bg-white rounded-xl border border-[#e7e7e4] p-6 space-y-4 relative">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-xs text-[#111111]">Environment Realtime Stream</h3>
-                  <p class="text-[10px] text-[#999999]">Live sensor data feed</p>
-                </div>
-              </div>
-
-              <div class="relative h-[240px] w-full pt-2">
-                <canvas id="pageTelemetryChart"></canvas>
-              </div>
-            </div>
-
-            <!-- THRESHOLDS PANEL -->
-            <div class="bg-white rounded-xl border border-[#e7e7e4] p-6 space-y-4">
-              <div>
-                <h3 class="font-semibold text-xs text-[#111111]">Threshold Status</h3>
-                <p class="text-[10px] text-[#999999]">Current sensor safety health</p>
-              </div>
-
-              <div class="space-y-4 divide-y divide-[#eeeeeb]">
-                <div class="pt-1">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span>Temperature Limit</span>
-                    <span class="text-[#15915a]">Max 35°C</span>
-                  </div>
-                  <div class="w-full h-1.5 bg-[#eeeeeb] rounded mt-1.5"><div id="bar-temp" class="h-full bg-[#15915a] w-[40%] rounded transition-all"></div></div>
-                </div>
-
-                <div class="pt-3">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span>Humidity Limit</span>
-                    <span class="text-[#15915a]">Max 80%</span>
-                  </div>
-                  <div class="w-full h-1.5 bg-[#eeeeeb] rounded mt-1.5"><div id="bar-hum" class="h-full bg-[#15915a] w-[50%] rounded transition-all"></div></div>
-                </div>
-
-                <div class="pt-3">
-                  <div class="flex justify-between text-xs font-semibold">
-                    <span>Gas Level Limit</span>
-                    <span class="text-[#15915a]">Max 700 PPM</span>
-                  </div>
-                  <div class="w-full h-1.5 bg-[#eeeeeb] rounded mt-1.5"><div id="bar-gas" class="h-full bg-[#15915a] w-[30%] rounded transition-all"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <!-- ================= PAGE 5: ANALYTICS ================= -->
-        <section id="view-analytics" class="hidden space-y-6">
-          <div class="flex justify-between items-end">
-            <div>
-              <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Analytics</h2>
-              <p class="text-xs text-[#888888] mt-1">Understand attendance patterns and classroom conditions.</p>
-            </div>
-            
-            <div class="flex items-center gap-3">
-              <button onclick="exportAnalyticsCSV()" class="h-9 px-3.5 bg-[#111111] text-white rounded-lg text-xs font-semibold hover:bg-[#222222] transition cursor-pointer flex items-center gap-1">
-                ↓ Export CSV Report
-              </button>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <div class="bg-white p-5 rounded-xl border border-[#E7E7E4] space-y-2">
-              <span class="text-xs text-[#777777]">Avg Temperature</span>
-              <p class="text-3xl font-bold text-[#111111]" id="kpi-avg-temp">-- °C</p>
-              <p class="text-[10px] text-[#15915A] font-semibold">Firebase Live Stream</p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-[#E7E7E4] space-y-2">
-              <span class="text-xs text-[#777777]">Avg Humidity</span>
-              <p class="text-3xl font-bold text-[#111111]" id="kpi-avg-hum">-- %</p>
-              <p class="text-[10px] text-[#999999]">Optimal Environment</p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-[#E7E7E4] space-y-2">
-              <span class="text-xs text-[#777777]">Avg Gas Level</span>
-              <p class="text-3xl font-bold text-[#111111]" id="kpi-avg-gas">-- PPM</p>
-              <p class="text-[10px] text-[#999999]">Safe Air Quality</p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl border border-[#E7E7E4] space-y-2">
-              <span class="text-xs text-[#777777]">Sensor Availability</span>
-              <p class="text-3xl font-bold text-[#111111]">100%</p>
-              <p class="text-[10px] text-[#999999]">NodeMCU Operational</p>
-            </div>
-          </div>
-        </section>
-
-
-        <!-- ================= PAGE 6: SETTINGS ================= -->
-        <section id="view-settings" class="hidden space-y-6">
-          <div>
-            <h2 class="text-2xl font-bold text-[#111111] tracking-tight">Classroom Settings</h2>
-            <p class="text-xs text-[#777777]">Hardware parameters, Firebase credentials & classroom info</p>
-          </div>
-
-          <div class="bg-white p-6 rounded-xl border border-[#e7e7e3] space-y-4 max-w-xl">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Classroom Identifier</label>
-              <input type="text" value="CSE-A · Room 204" class="w-full px-3 py-2 border border-[#e2e2df] rounded-lg text-xs" readonly />
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold mb-1">ESP8266 Hardware Node Status</label>
-              <div class="p-3 bg-green-50 border border-green-200 text-green-700 text-xs rounded-lg flex items-center justify-between">
-                <span>● Connected (WiFi: infiNET 5GHz)</span>
-                <span class="font-bold">Online</span>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold mb-1">Google Apps Script Web App URL</label>
-              <input type="text" value="https://script.google.com/macros/s/AKfycbxjtju9ll7pJPwDWZIoq_AhckqwBeCnfIKb3syOd7FF2hFo46x7sy2wfoU4xhJdhsN1/exec" class="w-full px-3 py-2 border border-[#e2e2df] rounded-lg text-xs font-mono" readonly />
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold mb-1">Firebase Endpoint</label>
-              <input type="text" value="https://environment-318e8-default-rtdb.asia-southeast1.firebasedatabase.app" class="w-full px-3 py-2 border border-[#e2e2df] rounded-lg text-xs font-mono" readonly />
-            </div>
-
-            <button onclick="alert('Settings saved successfully!')" class="px-4 py-2 bg-[#111111] text-white text-xs font-semibold rounded-lg hover:bg-[#222222] transition cursor-pointer">
-              Save Settings
-            </button>
-          </div>
+          <h2 class="text-2xl font-bold text-[#111111]">Environment Telemetry</h2>
+          <p class="text-xs text-[#777777]">Live telemetry feed from ESP8266 + Firebase</p>
         </section>
 
       </main>
     </div>
-
   </div>
 
-
-  <!-- ========================================== -->
-  <!-- 4. REGISTER STUDENT MODAL DIALOG           -->
-  <!-- ========================================== -->
-  <div id="register-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#e7e7e3] space-y-4">
-      <div class="flex justify-between items-center border-b border-[#ededeb] pb-3">
-        <h3 class="font-bold text-base text-[#111111]">Register Student with OTP</h3>
-        <button onclick="closeRegisterModal()" class="text-slate-400 hover:text-black font-bold text-lg cursor-pointer">&times;</button>
-      </div>
-
-      <p class="text-xs text-gray-500">Enter the student details along with the 4-digit OTP shown on the classroom LCD screen when tapping an unregistered RFID card.</p>
-
-      <form onsubmit="handleStudentRegistration(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block font-semibold text-[#545454] mb-1">Full Name</label>
-          <input type="text" id="reg-name" placeholder="e.g. Sudarshan Rajesh" required class="w-full px-3 py-2 border border-[#dddddd] rounded-lg focus:outline-none focus:border-[#111111]" />
-        </div>
-
-        <div>
-          <label class="block font-semibold text-[#545454] mb-1">Roll Number</label>
-          <input type="text" id="reg-roll" placeholder="e.g. 23EC005" required class="w-full px-3 py-2 border border-[#dddddd] rounded-lg focus:outline-none focus:border-[#111111]" />
-        </div>
-
-        <div>
-          <label class="block font-semibold text-[#545454] mb-1">4-Digit OTP (From LCD Screen)</label>
-          <input type="text" id="reg-otp" maxlength="4" placeholder="e.g. 4829" required class="w-full px-3 py-2 border border-[#dddddd] rounded-lg font-mono tracking-widest text-center text-sm focus:outline-none focus:border-[#111111]" />
-        </div>
-
-        <div class="pt-2 flex gap-2">
-          <button type="button" onclick="closeRegisterModal()" class="flex-1 py-2.5 border border-[#dddddd] text-[#545454] font-semibold rounded-lg hover:bg-slate-50 cursor-pointer">Cancel</button>
-          <button type="submit" id="reg-submit-btn" class="flex-1 py-2.5 bg-[#111111] text-white font-semibold rounded-lg hover:bg-[#222222] cursor-pointer">Register Student</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- ========================================== -->
-  <!-- 5. REALTIME INTEGRATION JAVASCRIPT CONTROLLER -->
-  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Config Endpoints
-    const FIREBASE_DB_URL   = "https://environment-318e8-default-rtdb.asia-southeast1.firebasedatabase.app/environment.json";
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjtju9ll7pJPwDWZIoq_AhckqwBeCnfIKb3syOd7FF2hFo46x7sy2wfoU4xhJdhsN1/exec";
 
-    let dashChartObj = null;
-    let pageChartObj = null;
-    let liveTemp = 0, liveHum = 0, liveGas = 0;
-
-    // Login Verification Handshake
     function handleLogin(event) {
       event.preventDefault();
-      
       const user = document.getElementById('login-username').value.trim().toLowerCase();
       const pass = document.getElementById('login-password').value.trim();
-      const errorAlert = document.getElementById('login-error');
 
       if ((user === "sudharshan" && pass === "1234") || (user === "tharun" && pass === "123")) {
-        errorAlert.classList.add('hidden');
         document.getElementById('login-section').classList.add('hidden');
         document.getElementById('main-dashboard-app').classList.remove('hidden');
 
-        // Update User Interface Profile Display
-        const displayName = user === "sudharshan" ? "Sudharshan" : "Tharun S";
-        const avatarText  = user === "sudharshan" ? "SU" : "TS";
-        if (document.getElementById('user-display-name')) document.getElementById('user-display-name').innerText = displayName;
-        if (document.getElementById('user-avatar-text'))  document.getElementById('user-avatar-text').innerText  = avatarText;
-
-        // Initialize Realtime Polling & Charts
-        initCharts();
-        fetchFirebaseLiveData();
         fetchStudentRoster();
-        setInterval(fetchFirebaseLiveData, 3000); // 3 Sec Live Polling
-        setInterval(fetchStudentRoster, 4000);     // 4 Sec Auto Polling for Live Attendance Scan Updates
+        setInterval(fetchStudentRoster, 4000); // Auto Sync every 4 sec
       } else {
-        errorAlert.classList.remove('hidden');
+        document.getElementById('login-error').classList.remove('hidden');
       }
     }
 
-    // Dynamic Tab Switcher
     function switchTab(tabName) {
-      const views = ['dashboard', 'attendance', 'students', 'environment', 'analytics', 'settings'];
-      
-      const pageTitleEl = document.getElementById('header-page-title');
-      if (pageTitleEl) {
-        pageTitleEl.innerText = tabName.charAt(0).toUpperCase() + tabName.slice(1);
-      }
-
-      views.forEach(view => {
-        const viewEl = document.getElementById(`view-${view}`);
-        const navBtn = document.getElementById(`nav-${view}`);
-        
-        if (view === tabName) {
-          viewEl.classList.remove('hidden');
-          navBtn.classList.add('bg-[#111111]', 'text-white');
-          navBtn.classList.remove('text-[#666666]', 'hover:bg-slate-100');
-        } else {
-          viewEl.classList.add('hidden');
-          navBtn.classList.remove('bg-[#111111]', 'text-white');
-          navBtn.classList.add('text-[#666666]', 'hover:bg-slate-100');
-        }
+      ['dashboard', 'attendance', 'students', 'environment'].forEach(view => {
+        document.getElementById(`view-${view}`)?.classList.add('hidden');
+        document.getElementById(`nav-${view}`)?.classList.remove('bg-[#111111]', 'text-white');
       });
-    }
-
-    // Modal Controls
-    function openRegisterModal() { document.getElementById('register-modal').classList.remove('hidden'); }
-    function closeRegisterModal() { document.getElementById('register-modal').classList.add('hidden'); }
-
-    // Clear Attendance Handler (Clears Log, Resets Status to ABSENT in UI)
-    async function clearAttendanceList() {
-      if (confirm("Are you sure you want to CLEAR the attendance log? All students will be reset to ABSENT until scanned again.")) {
-        try {
-          // Direct image pixel trigger for no-CORS error fetch
-          const img = new Image();
-          img.src = `${GOOGLE_SCRIPT_URL}?action=clearAttendance&t=${new Date().getTime()}`;
-          
-          setTimeout(() => {
-            alert("✅ Attendance log cleared successfully!");
-            fetchStudentRoster();
-          }, 1000);
-
-        } catch (err) {
-          console.error("Error clearing attendance log:", err);
-          fetchStudentRoster();
-        }
-      }
+      document.getElementById(`view-${tabName}`)?.classList.remove('hidden');
+      document.getElementById(`nav-${tabName}`)?.classList.add('bg-[#111111]', 'text-white');
     }
 
     // =========================================================
-    // 1. REALTIME SENSOR POLLING FROM FIREBASE DB
-    // =========================================================
-    async function fetchFirebaseLiveData() {
-      try {
-        const response = await fetch(FIREBASE_DB_URL);
-        if (!response.ok) return;
-
-        const data = await response.json();
-        if (!data) return;
-
-        liveTemp = data.temperature !== undefined ? parseFloat(data.temperature).toFixed(1) : 0;
-        liveHum  = data.humidity !== undefined ? parseFloat(data.humidity).toFixed(1) : 0;
-        liveGas  = data.gas_level !== undefined ? parseInt(data.gas_level) : 0;
-
-        // Update Dashboard Elements
-        document.getElementById('dash-live-temp').innerText = `${liveTemp} °C`;
-        document.getElementById('dash-live-hum').innerText  = `${liveHum} %`;
-        document.getElementById('dash-live-gas').innerText  = `${liveGas} PPM`;
-
-        document.getElementById('env-card-temp').innerText = `${liveTemp} °C`;
-        document.getElementById('env-card-hum').innerText  = `${liveHum} %`;
-        document.getElementById('env-card-gas').innerText  = `${liveGas} PPM`;
-
-        // Update Environment Page Elements
-        document.getElementById('page-env-temp').innerText = `${liveTemp} °C`;
-        document.getElementById('page-env-hum').innerText  = `${liveHum} %`;
-        document.getElementById('page-env-gas').innerText  = `${liveGas} PPM`;
-
-        document.getElementById('kpi-avg-temp').innerText = `${liveTemp} °C`;
-        document.getElementById('kpi-avg-hum').innerText  = `${liveHum} %`;
-        document.getElementById('kpi-avg-gas').innerText  = `${liveGas} PPM`;
-
-        // Progress Bar Width Updates
-        document.getElementById('bar-temp').style.width = `${Math.min((liveTemp/50)*100, 100)}%`;
-        document.getElementById('bar-hum').style.width  = `${Math.min((liveHum/100)*100, 100)}%`;
-        document.getElementById('bar-gas').style.width  = `${Math.min((liveGas/1023)*100, 100)}%`;
-
-        // Push to Live Telemetry Charts
-        const timeNow = new Date().toLocaleTimeString();
-        updateChartStream(dashChartObj, timeNow, liveTemp, liveHum, liveGas);
-        updateChartStream(pageChartObj, timeNow, liveTemp, liveHum, liveGas);
-
-      } catch (err) {
-        console.error("Error polling Firebase:", err);
-      }
-    }
-
-    function updateChartStream(chart, label, temp, hum, gas) {
-      if (!chart) return;
-      if (chart.data.labels.length > 8) {
-        chart.data.labels.shift();
-        chart.data.datasets[0].data.shift();
-        chart.data.datasets[1].data.shift();
-        chart.data.datasets[2].data.shift();
-      }
-      chart.data.labels.push(label);
-      chart.data.datasets[0].data.push(temp);
-      chart.data.datasets[1].data.push(hum);
-      chart.data.datasets[2].data.push(gas);
-      chart.update();
-    }
-
-    // =========================================================
-    // 2. FETCH REGISTERED STUDENTS FROM GOOGLE SHEETS BACKEND
+    // DYNAMIC ATTENDANCE SYNC & COUNTER UPDATER
     // =========================================================
     async function fetchStudentRoster() {
-      const rosterBody       = document.getElementById('student-roster-body');
-      const attendanceBody   = document.getElementById('attendance-table-body');
-      const recentContainer  = document.getElementById('dash-recent-students-container');
+      const rosterBody      = document.getElementById('student-roster-body');
+      const attendanceBody  = document.getElementById('attendance-table-body');
+      const recentContainer = document.getElementById('dash-recent-students-container');
 
       try {
-        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getStudents`, {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getStudents&t=${new Date().getTime()}`, {
           method: "GET",
-          redirect: "follow"
+          cache: "no-store"
         });
         
         const result = await response.json();
 
         if (result && result.students && result.students.length > 0) {
           const students = result.students;
-          const presentStudents = students.filter(s => s.status === "PRESENT");
+          
+          // Filter Present Students
+          const presentStudents = students.filter(s => s.status && s.status.toString().toUpperCase() === "PRESENT");
 
-          if(document.getElementById('total-student-count')) 
-            document.getElementById('total-student-count').innerText = `Total Students: ${students.length}`;
-          if(document.getElementById('att-total-count')) 
-            document.getElementById('att-total-count').innerText = students.length;
-          if(document.getElementById('att-active-count')) 
-            document.getElementById('att-active-count').innerText = presentStudents.length;
-          if(document.getElementById('dash-attendance-count')) 
-            document.getElementById('dash-attendance-count').innerText = `${presentStudents.length} / ${students.length}`;
-          if(document.getElementById('dash-attendance-rate')) 
-            document.getElementById('dash-attendance-rate').innerText = `${Math.round((presentStudents.length / students.length) * 100)}%`;
+          const totalCount   = students.length;
+          const presentCount = presentStudents.length;
+          const ratePercent  = Math.round((presentCount / totalCount) * 100);
 
-          // 1. Render Student Roster Table
-          if (rosterBody) {
-            rosterBody.innerHTML = "";
-            students.forEach(s => {
-              rosterBody.innerHTML += `
-                <tr class="hover:bg-slate-50 transition">
-                  <td class="p-3 pl-4 font-semibold text-[#111111]">${s.rollNo}</td>
-                  <td class="p-3 text-[#333333]">${s.name}</td>
-                  <td class="p-3 font-mono text-[#777777]">${s.rfid}</td>
-                  <td class="p-3 text-[#14915a] font-medium">● Registered</td>
-                </tr>
-              `;
-            });
+          // UPDATE HOME DASHBOARD COUNTER (e.g. 1 / 10)
+          if (document.getElementById('dash-attendance-count')) {
+            document.getElementById('dash-attendance-count').innerText = `${presentCount} / ${totalCount}`;
+          }
+          if (document.getElementById('dash-attendance-rate')) {
+            document.getElementById('dash-attendance-rate').innerText = `${ratePercent}%`;
           }
 
-          // 2. Render Attendance Roster Table with Dynamic Present / Absent Status
+          // 1. Render Attendance Roster Table
           if (attendanceBody) {
             attendanceBody.innerHTML = "";
             students.forEach(s => {
-              const isPresent = s.status === "PRESENT";
+              const isPresent = s.status && s.status.toString().toUpperCase() === "PRESENT";
               attendanceBody.innerHTML += `
-                <tr class="hover:bg-slate-50 transition">
-                  <td class="p-4 pl-5 font-semibold text-[#111111]">${s.rollNo}</td>
+                <tr class="hover:bg-slate-50 transition border-b border-[#ededeb]">
+                  <td class="p-4 font-semibold text-[#111111]">${s.rollNo}</td>
                   <td class="p-4 font-semibold text-[#111111]">${s.name}</td>
                   <td class="p-4 font-mono text-[#777777]">${s.rfid}</td>
-                  <td class="p-4 ${isPresent ? 'text-[#14915a]' : 'text-red-500'} font-semibold">
-                    ${isPresent ? '● Present' : '○ Absent'}
+                  <td class="p-4 font-bold ${isPresent ? 'text-green-600' : 'text-red-500'}">
+                    ${isPresent ? '● PRESENT' : '○ ABSENT'}
                   </td>
                 </tr>
               `;
             });
           }
 
-          // 3. Render Dashboard Recent Students Preview List
+          // 2. Render Student Management Table
+          if (rosterBody) {
+            rosterBody.innerHTML = "";
+            students.forEach(s => {
+              rosterBody.innerHTML += `
+                <tr class="hover:bg-slate-50 transition border-b border-[#ededeb]">
+                  <td class="p-3 pl-4 font-semibold text-[#111111]">${s.rollNo}</td>
+                  <td class="p-3 text-[#333333]">${s.name}</td>
+                  <td class="p-3 font-mono text-[#777777]">${s.rfid}</td>
+                  <td class="p-3 text-green-600 font-medium">● Registered</td>
+                </tr>
+              `;
+            });
+          }
+
+          // 3. Render Dashboard Recent Scans Preview
           if (recentContainer) {
             recentContainer.innerHTML = "";
-            students.slice(0, 4).forEach(s => {
-              const isPresent = s.status === "PRESENT";
+            students.forEach(s => {
+              const isPresent = s.status && s.status.toString().toUpperCase() === "PRESENT";
               recentContainer.innerHTML += `
                 <div class="flex justify-between items-center pt-2">
                   <div class="flex items-center gap-3">
-                    <div class="w-[31px] h-[31px] bg-[#efefed] rounded-full flex items-center justify-center text-[10px] font-bold text-[#111111]">
+                    <div class="w-8 h-8 bg-[#efefed] rounded-full flex items-center justify-center text-xs font-bold text-[#111111]">
                       ${s.name.substring(0,2).toUpperCase()}
                     </div>
                     <div>
@@ -961,126 +355,19 @@
                       <p class="text-[10px] text-[#999999]">${s.rollNo}</p>
                     </div>
                   </div>
-                  <span class="text-xs font-bold ${isPresent ? 'text-[#14915a]' : 'text-red-500'}">
-                    ${isPresent ? 'Present' : 'Absent'}
+                  <span class="text-xs font-bold ${isPresent ? 'text-green-600' : 'text-red-500'}">
+                    ${isPresent ? '● Present' : '○ Absent'}
                   </span>
                 </div>
               `;
             });
           }
 
-        } else {
-          if (document.getElementById('total-student-count')) document.getElementById('total-student-count').innerText = "Total Students: 0";
-          if (document.getElementById('att-total-count'))     document.getElementById('att-total-count').innerText = "0";
-          if (document.getElementById('att-active-count'))    document.getElementById('att-active-count').innerText = "0";
-          if (document.getElementById('dash-attendance-count')) document.getElementById('dash-attendance-count').innerText = "0 / 0";
-          if (document.getElementById('dash-attendance-rate'))  document.getElementById('dash-attendance-rate').innerText = "0%";
-
-          if (rosterBody) rosterBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400">No registered students found in Google Sheets.</td></tr>`;
-          if (attendanceBody) attendanceBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400">No active students found.</td></tr>`;
-          if (recentContainer) recentContainer.innerHTML = `<p class="text-xs text-gray-400 py-2">No students registered yet.</p>`;
         }
       } catch (err) {
-        console.error("Error fetching students from Google Sheets:", err);
+        console.error("Error fetching live student status:", err);
       }
-    }
-
-    // =========================================================
-    // 3. STUDENT REGISTRATION VIA OTP
-    // =========================================================
-    async function handleStudentRegistration(e) {
-      e.preventDefault();
-      const name      = document.getElementById('reg-name').value.trim();
-      const roll      = document.getElementById('reg-roll').value.trim();
-      const otp       = document.getElementById('reg-otp').value.trim();
-      const submitBtn = document.getElementById('reg-submit-btn');
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = "Registering...";
-
-      try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify({
-            action: "register",
-            student_name: name,
-            rollNo: roll,
-            otp: otp
-          })
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          alert(`✅ Success: ${name} (${roll}) registered in Google Sheets!`);
-          closeRegisterModal();
-          document.getElementById('reg-name').value = '';
-          document.getElementById('reg-roll').value = '';
-          document.getElementById('reg-otp').value = '';
-          fetchStudentRoster();
-        } else {
-          alert("❌ Registration Failed: " + (result.message || "Invalid OTP"));
-        }
-      } catch (err) {
-        console.error("Error submitting registration:", err);
-        alert("❌ Failed to connect to Google Sheets Web App Backend!");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "Register Student";
-      }
-    }
-
-    // Filter Student Roster Table
-    function filterStudentsTable() {
-      const input = document.getElementById('student-search-input').value.toLowerCase();
-      const rows = document.querySelectorAll('#student-roster-body tr');
-
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(input) ? '' : 'none';
-      });
-    }
-
-    // Initialize Chart.js Graphs
-    function initCharts() {
-      const config = (ctx) => ({
-        type: 'line',
-        data: {
-          labels: [],
-          datasets: [
-            { label: 'Temp (°C)', borderColor: '#ef4444', borderWidth: 2, data: [], fill: false, tension: 0.3 },
-            { label: 'Humidity (%)', borderColor: '#0284c7', borderWidth: 2, data: [], fill: false, tension: 0.3 },
-            { label: 'Gas (PPM)', borderColor: '#eab308', borderWidth: 2, data: [], fill: false, tension: 0.3 }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { grid: { color: '#eeeeeb' } },
-            x: { grid: { display: false } }
-          }
-        }
-      });
-
-      const dashCtx = document.getElementById('dashTelemetryChart')?.getContext('2d');
-      if (dashCtx) dashChartObj = new Chart(dashCtx, config(dashCtx));
-
-      const pageCtx = document.getElementById('pageTelemetryChart')?.getContext('2d');
-      if (pageCtx) pageChartObj = new Chart(pageCtx, config(pageCtx));
-    }
-
-    function exportAnalyticsCSV() {
-      const csvContent = "data:text/csv;charset=utf-8,Sensor,Current Value,Threshold\nTemperature," + liveTemp + " C,35 C\nHumidity," + liveHum + " %,80 %\nGas Level," + liveGas + " PPM,700 PPM\n";
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "ClassIQ_Live_Environment_Report.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     }
   </script>
-
 </body>
 </html>
