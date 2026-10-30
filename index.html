@@ -433,9 +433,14 @@
                 <h3 class="font-bold text-sm text-[#111111]">Registered Student List</h3>
                 <p class="text-[11px] text-[#999999]">Live RFID database entries from Google Sheets</p>
               </div>
-              <button onclick="fetchStudentRoster()" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-black font-semibold cursor-pointer">
-                ↻ Refresh Roster
-              </button>
+              <div class="flex items-center gap-2">
+                <button onclick="clearAttendanceList()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-lg font-semibold cursor-pointer transition">
+                  🗑 Clear All
+                </button>
+                <button onclick="fetchStudentRoster()" class="text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg text-black font-semibold cursor-pointer transition">
+                  ↻ Refresh Roster
+                </button>
+              </div>
             </div>
 
             <div class="overflow-x-auto">
@@ -786,6 +791,19 @@
     // Modal Controls
     function openRegisterModal() { document.getElementById('register-modal').classList.remove('hidden'); }
     function closeRegisterModal() { document.getElementById('register-modal').classList.add('hidden'); }
+
+    // Clear Attendance List Handler
+    function clearAttendanceList() {
+      if (confirm("Are you sure you want to clear all attendance entries from the UI display?")) {
+        const attendanceBody = document.getElementById('attendance-table-body');
+        if (attendanceBody) {
+          attendanceBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-400">Attendance list cleared. Tap 'Refresh Roster' to reload.</td></tr>`;
+        }
+        if (document.getElementById('att-active-count')) {
+          document.getElementById('att-active-count').innerText = "0";
+        }
+      }
+    }
 
     // =========================================================
     // 1. REALTIME SENSOR POLLING FROM FIREBASE DB
